@@ -37,10 +37,10 @@ jobs:
             cd /home/ubuntu
 
             # clone or pull repo
-            if [ ! -d "db-repo" ]; then
-              git clone https://${{ secrets.TOKEN_FOR_REPO }}@github.com/BitCoin-Auto-Trade/db-repo.git
+            if [ ! -d "DB_Server" ]; then
+              git clone https://${{ secrets.TOKEN_FOR_REPO }}@github.com/BitCoin-Auto-Trade/DB_Server.git
             fi
-            cd db-repo
+            cd DB_Server
             git pull origin main
 
             # .env 생성 (줄바꿈 보존용)
