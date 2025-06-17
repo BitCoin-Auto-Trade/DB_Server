@@ -7,7 +7,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Get current GitHub runner IP
         id: ip
@@ -34,20 +33,12 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -ex
-            cd /home/ubuntu
-
-            # clone or pull repo
-            if [ ! -d "DB_Server" ]; then
-              git clone https://${{ secrets.TOKEN_FOR_REPO }}@github.com/BitCoin-Auto-Trade/DB_Server.git
-            fi
-            cd DB_Server
+            cd /home/ubuntu/DB_Server
             git pull origin main
 
-            # .env 생성 (줄바꿈 보존용)
-            printf "%s\n" "${{ secrets.ENV_DB }}" > .env
+            printf "%s" "${{ secrets.ENV_DB }}" | base64 -d > .env
 
-            # docker-compose 실행
-            docker-compose down || true
+            docker-compose down --remove-orphans || true
             docker-compose up -d --build
 
       - name: Revoke GitHub IP from port 22
