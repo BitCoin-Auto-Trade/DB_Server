@@ -1,2 +1,2 @@
 # DB_Server
-redis, postgre, mongo DB 서버
+redis, postgre 서버
