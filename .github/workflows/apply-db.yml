@@ -34,6 +34,8 @@ jobs:
           script: |
             set -ex
             cd /home/ubuntu/DB_Server
+            git reset --hard
+            git clean -fd
             git pull origin main
 
             printf "%s" "${{ secrets.ENV_DB }}" | base64 -d > .env
